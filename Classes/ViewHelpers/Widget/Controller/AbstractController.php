@@ -41,16 +41,25 @@ abstract class AbstractController extends AbstractWidgetController
      */
     protected $defaultSettings = [];
 
+    /**
+     * @param \JWeiland\Maps2\Configuration\ExtConf $extConf
+     */
     public function injectExtConf(ExtConf $extConf)
     {
         $this->extConf = $extConf;
     }
 
+    /**
+     * @param \JWeiland\Maps2\Service\MapService $mapService
+     */
     public function injectMapService(MapService $mapService)
     {
         $this->mapService = $mapService;
     }
 
+    /**
+     * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
+     */
     public function initializeView(ViewInterface $view)
     {
         if (array_key_exists('infoWindowContentTemplatePath', $this->settings)) {
@@ -91,12 +100,16 @@ abstract class AbstractController extends AbstractWidgetController
         }
     }
 
+    /**
+     * @return array
+     */
     protected function getMaps2TypoScriptSettings(): array
     {
         $fullTypoScript = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );
         if (ArrayUtility::isValidPath($fullTypoScript, 'plugin./tx_maps2./settings.')) {
+            /** @var TypoScriptService $typoScriptService */
             $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
             $settings = ArrayUtility::getValueByPath($fullTypoScript, 'plugin./tx_maps2./settings.');
             return $typoScriptService->convertTypoScriptArrayToPlainArray($settings);

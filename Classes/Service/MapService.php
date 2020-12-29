@@ -56,14 +56,21 @@ class MapService
      */
     protected $columnRegistry = '';
 
+    /**
+     * MapService constructor.
+     *
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
+     */
     public function __construct()
     {
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $this->configurationManager = $this->objectManager->get(ConfigurationManagerInterface::class);
 
+        /** @var Maps2Registry $maps2Registry */
         $maps2Registry = GeneralUtility::makeInstance(Maps2Registry::class);
         $this->columnRegistry = $maps2Registry->getColumnRegistry();
 
+        /** @var EnvironmentService $environmentService */
         $environmentService = GeneralUtility::makeInstance(EnvironmentService::class);
         if ($environmentService->isEnvironmentInFrontendMode()) {
             $this->settings = $this->configurationManager->getConfiguration(
@@ -91,6 +98,7 @@ class MapService
             $flashMessageQueue->enqueue($flashMessage);
         }
 
+        /** @var StandaloneView $view */
         $view = GeneralUtility::makeInstance(
             StandaloneView::class,
             $this->configurationManager->getContentObject()
@@ -122,8 +130,13 @@ class MapService
         );
     }
 
+    /**
+     * @return string
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
+     */
     protected function getRequestUri(): string
     {
+        /** @var UriBuilder $uriBuilder */
         $uriBuilder = $this->objectManager->get(UriBuilder::class);
 
         return $uriBuilder->reset()
@@ -137,8 +150,12 @@ class MapService
             ->build();
     }
 
+    /**
+     * @return string
+     */
     protected function getAllowMapTemplatePath(): string
     {
+        /** @var ExtConf $extConf */
         $extConf = GeneralUtility::makeInstance(ExtConf::class);
 
         // get default template path
@@ -162,6 +179,7 @@ class MapService
     public function getMapProvider(array $databaseRow = []): string
     {
         $mapProvider = '';
+        /** @var ExtConf $extConf */
         $extConf = GeneralUtility::makeInstance(ExtConf::class);
 
         // Only if both map providers are allowed, we can read map provider from Database
@@ -230,6 +248,7 @@ class MapService
      */
     protected function renderInfoWindow(PoiCollection $poiCollection): string
     {
+        /** @var StandaloneView $view */
         $view = $this->objectManager->get(StandaloneView::class);
         $view->assign('settings', $this->settings);
         $view->assign('poiCollection', $poiCollection);
@@ -246,6 +265,7 @@ class MapService
      */
     protected function getInfoWindowContentTemplatePath(): string
     {
+        /** @var ExtConf $extConf */
         $extConf = GeneralUtility::makeInstance(ExtConf::class);
 
         // get default template path
@@ -275,6 +295,7 @@ class MapService
     public function createNewPoiCollection($pid, Position $position, array $overrideFieldValues = []): int
     {
         if (empty($position->getLatitude()) || empty($position->getLongitude())) {
+            /** @var MessageHelper $messageHelper */
             $messageHelper = GeneralUtility::makeInstance(MessageHelper::class);
             $messageHelper->addFlashMessage(
                 'The is no latitude or longitude in Response of Map Provider.',
@@ -334,6 +355,7 @@ class MapService
         string $foreignFieldName = 'tx_maps2_uid'
     ): void {
         $hasErrors = false;
+        /** @var MessageHelper $messageHelper */
         $messageHelper = GeneralUtility::makeInstance(MessageHelper::class);
 
         if ($poiCollectionUid === 0) {
@@ -482,6 +504,7 @@ class MapService
         string $tableName,
         string $columnName
     ): void {
+        /** @var Dispatcher $signalSlotDispatcher */
         $signalSlotDispatcher = $this->objectManager->get(Dispatcher::class);
         $signalSlotDispatcher->dispatch(
             self::class,
@@ -490,6 +513,9 @@ class MapService
         );
     }
 
+    /**
+     * @return \TYPO3\CMS\Core\Database\ConnectionPool
+     */
     protected function getConnectionPool(): ConnectionPool
     {
         return GeneralUtility::makeInstance(ConnectionPool::class);

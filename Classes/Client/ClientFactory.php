@@ -29,6 +29,7 @@ class ClientFactory
 
     public function create(): ClientInterface
     {
+        /** @var MapService $mapService */
         $mapService = GeneralUtility::makeInstance(MapService::class);
 
         /** @var ClientInterface $client */

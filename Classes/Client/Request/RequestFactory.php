@@ -39,6 +39,7 @@ class RequestFactory
      */
     public function create(string $filename, ExtConf $extConf = null): RequestInterface
     {
+        /** @var MapService $mapService */
         $mapService = GeneralUtility::makeInstance(MapService::class);
         $className = sprintf(
             '%s\\%s',

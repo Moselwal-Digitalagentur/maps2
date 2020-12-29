@@ -16,6 +16,9 @@ namespace JWeiland\Maps2\Tca\Type;
  */
 class FloatType
 {
+    /**
+     * @return string
+     */
     public function returnFieldJS(): string
     {
         return '
@@ -23,6 +26,12 @@ class FloatType
         ';
     }
 
+    /**
+     * @param string $value
+     * @param $is_in
+     * @param $set
+     * @return string
+     */
     public function evaluateFieldValue(string $value, $is_in, &$set): string
     {
         return number_format((float)$value, 6);

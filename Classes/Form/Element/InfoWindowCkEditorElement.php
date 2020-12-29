@@ -168,6 +168,7 @@ class InfoWindowCkEditorElement extends AbstractFormElement
             $languageCodeParts = explode('_', $contentLanguage);
             $contentLanguage = strtolower($languageCodeParts[0]) . ($languageCodeParts[1] ? '_' . strtoupper($languageCodeParts[1]) : '');
             // Find the configured language in the list of localization locales
+            /** @var Locales $locales */
             $locales = GeneralUtility::makeInstance(Locales::class);
             // If not found, default to 'en'
             if (!in_array($contentLanguage, $locales->getLocales(), true)) {
@@ -245,6 +246,7 @@ class InfoWindowCkEditorElement extends AbstractFormElement
 
         $pluginConfiguration = [];
         if (isset($this->rteConfiguration['externalPlugins']) && is_array($this->rteConfiguration['externalPlugins'])) {
+            /** @var UriBuilder $uriBuilder */
             $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
             foreach ($this->rteConfiguration['externalPlugins'] as $pluginName => $configuration) {
                 $pluginConfiguration[$pluginName] = [

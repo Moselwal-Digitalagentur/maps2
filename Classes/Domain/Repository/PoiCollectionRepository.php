@@ -35,23 +35,37 @@ class PoiCollectionRepository extends Repository
      */
     protected $environmentService;
 
+    /**
+     * @param \TYPO3\CMS\Extbase\Service\EnvironmentService $environmentService
+     */
     public function injectEnvironmentService(EnvironmentService $environmentService)
     {
         $this->environmentService = $environmentService;
     }
 
+    /**
+     * @return \TYPO3\CMS\Frontend\Page\PageRepository
+     */
     protected function getPageRepository(): PageRepository
     {
         if (!$this->pageRepository instanceof PageRepository) {
             if ($this->environmentService->isEnvironmentInFrontendMode() && is_object($GLOBALS['TSFE'])) {
                 $this->pageRepository = $GLOBALS['TSFE']->sys_page;
             } else {
+                /** @var PageRepository pageRepository */
                 $this->pageRepository = GeneralUtility::makeInstance(PageRepository::class);
             }
         }
         return $this->pageRepository;
     }
 
+    /**
+     * @param float $latitude
+     * @param float $longitude
+     * @param int $radius
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     */
     public function searchWithinRadius(float $latitude, float $longitude, int $radius): QueryResultInterface
     {
         $radiusOfEarth = 6380;
@@ -72,6 +86,11 @@ class PoiCollectionRepository extends Repository
         )->execute();
     }
 
+    /**
+     * @param $categories
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
     public function findPoisByCategories($categories): QueryResultInterface
     {
         $query = $this->createQuery();

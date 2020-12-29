@@ -35,26 +35,44 @@ abstract class AbstractRequest implements RequestInterface
      */
     protected $parameters = [];
 
+    /**
+     * AbstractRequest constructor.
+     *
+     * @param \JWeiland\Maps2\Configuration\ExtConf|null $extConf
+     */
     public function __construct(ExtConf $extConf = null)
     {
         $this->extConf = $extConf ?? GeneralUtility::makeInstance(ExtConf::class);
     }
 
+    /**
+     * @return string
+     */
     public function getUri(): string
     {
         return $this->uri;
     }
 
+    /**
+     * @param string $uri
+     */
     public function setUri(string $uri)
     {
         $this->uri = trim($uri);
     }
 
+    /**
+     * @return array
+     */
     public function getParameters(): array
     {
         return $this->parameters;
     }
 
+    /**
+     * @param array $parameters
+     * @return mixed|void
+     */
     public function setParameters(array $parameters)
     {
         $this->parameters = $parameters;
@@ -78,6 +96,10 @@ abstract class AbstractRequest implements RequestInterface
         return $this->parameters[$parameter];
     }
 
+    /**
+     * @param string $parameter
+     * @return bool
+     */
     public function hasParameter(string $parameter): bool
     {
         return array_key_exists($parameter, $this->parameters);
@@ -103,6 +125,9 @@ abstract class AbstractRequest implements RequestInterface
         return rawurlencode($address);
     }
 
+    /**
+     * @return bool
+     */
     public function isValidRequest(): bool
     {
         $isValid = true;

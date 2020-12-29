@@ -16,12 +16,25 @@ namespace JWeiland\Maps2\Client\Request;
  */
 interface RequestInterface
 {
+    /**
+     * @return string
+     */
     public function getUri(): string;
 
+    /**
+     * @return bool
+     */
     public function isValidRequest(): bool;
 
+    /**
+     * @return array
+     */
     public function getParameters(): array;
 
+    /**
+     * @param array $parameters
+     * @return mixed
+     */
     public function setParameters(array $parameters);
 
     /**
@@ -36,5 +49,9 @@ interface RequestInterface
      */
     public function getParameter(string $parameter);
 
+    /**
+     * @param string $parameter
+     * @return bool
+     */
     public function hasParameter(string $parameter): bool;
 }

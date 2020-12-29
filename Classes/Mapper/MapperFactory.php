@@ -27,8 +27,12 @@ class MapperFactory
         'osm' => OpenStreetMapMapper::class
     ];
 
+    /**
+     * @return \JWeiland\Maps2\Mapper\MapperInterface
+     */
     public function create(): MapperInterface
     {
+        /** @var MapService $mapService */
         $mapService = GeneralUtility::makeInstance(MapService::class);
 
         /** @var MapperInterface $client */

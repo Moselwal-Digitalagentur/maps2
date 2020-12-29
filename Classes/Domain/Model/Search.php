@@ -27,21 +27,33 @@ class Search
      */
     protected $radius = 50;
 
+    /**
+     * @return string
+     */
     public function getAddress(): string
     {
         return $this->address;
     }
 
+    /**
+     * @param string $address
+     */
     public function setAddress(string $address)
     {
         $this->address = $address;
     }
 
+    /**
+     * @return int
+     */
     public function getRadius(): int
     {
         return $this->radius;
     }
 
+    /**
+     * @param int $radius
+     */
     public function setRadius(int $radius)
     {
         $this->radius = $radius;

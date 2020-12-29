@@ -63,6 +63,16 @@ class CreateMaps2RecordHook
      */
     protected $columnRegistry = [];
 
+    /**
+     * CreateMaps2RecordHook constructor.
+     *
+     * @param \JWeiland\Maps2\Service\GeoCodeService|null $geoCodeService
+     * @param \JWeiland\Maps2\Helper\MessageHelper|null $messageHelper
+     * @param \TYPO3\CMS\Extbase\SignalSlot\Dispatcher|null $signalSlotDispatcher
+     * @param \JWeiland\Maps2\Service\MapService|null $mapService
+     * @param \JWeiland\Maps2\Tca\Maps2Registry|null $maps2Registry
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
+     */
     public function __construct(
         GeoCodeService $geoCodeService = null,
         MessageHelper $messageHelper = null,
@@ -292,6 +302,7 @@ class CreateMaps2RecordHook
      */
     protected function updateAddressInPoiCollectionIfNecessary(array $foreignLocationRecord, string $foreignColumnName, array $options)
     {
+        /** @var AddressHelper $addressHelper */
         $addressHelper = GeneralUtility::makeInstance(AddressHelper::class);
         $poiCollection = $this->getPoiCollection((int)$foreignLocationRecord[$foreignColumnName]);
         if (!$addressHelper->isSameAddress($poiCollection['address'], $foreignLocationRecord, $options)) {
@@ -376,12 +387,14 @@ class CreateMaps2RecordHook
      */
     protected function createNewMapsRecord(array &$foreignLocationRecord, string $foreignTableName, string $foreignColumnName, array $options): bool
     {
+        /** @var StoragePidHelper $storagePidHelper */
         $storagePidHelper = GeneralUtility::makeInstance(StoragePidHelper::class);
         $defaultStoragePid = $storagePidHelper->getDefaultStoragePidForNewPoiCollection($foreignLocationRecord, $options);
         if (empty($defaultStoragePid)) {
             return false;
         }
 
+        /** @var AddressHelper $addressHelper */
         $addressHelper = GeneralUtility::makeInstance(AddressHelper::class);
         $address = $addressHelper->getAddress($foreignLocationRecord, $options);
 
@@ -584,6 +597,9 @@ class CreateMaps2RecordHook
         );
     }
 
+    /**
+     * @return \TYPO3\CMS\Core\Database\ConnectionPool
+     */
     protected function getConnectionPool(): ConnectionPool
     {
         return GeneralUtility::makeInstance(ConnectionPool::class);

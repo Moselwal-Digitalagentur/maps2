@@ -73,8 +73,10 @@ class EditPoiViewHelper extends AbstractWidgetViewHelper
         // Set previous RenderingContext to this VH, to have access to ViewHelperVariableContainer
         $this->controller->setRenderingContext($this->renderingContext);
 
+        /** @var MapProviderRequestService $mapProviderRequestService */
         $mapProviderRequestService = GeneralUtility::makeInstance(MapProviderRequestService::class);
         if (!$mapProviderRequestService->isRequestToMapProviderAllowed()) {
+            /** @var MapService $mapService */
             $mapService = GeneralUtility::makeInstance(MapService::class);
             return $mapService->showAllowMapForm();
         }

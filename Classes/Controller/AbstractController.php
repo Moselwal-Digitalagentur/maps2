@@ -30,11 +30,17 @@ class AbstractController extends ActionController
      */
     protected $extConf;
 
+    /**
+     * @param \JWeiland\Maps2\Configuration\ExtConf $extConf
+     */
     public function injectExtConf(ExtConf $extConf)
     {
         $this->extConf = $extConf;
     }
 
+    /**
+     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
+     */
     public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager)
     {
         $this->configurationManager = $configurationManager;
@@ -57,6 +63,9 @@ class AbstractController extends ActionController
         $this->settings = $originalSettings;
     }
 
+    /**
+     * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
+     */
     public function initializeView(ViewInterface $view)
     {
         // remove unneeded columns from tt_content array
@@ -73,6 +82,9 @@ class AbstractController extends ActionController
         ]);
     }
 
+    /**
+     * @throws \TYPO3\CMS\Core\Exception
+     */
     protected function prepareSettings()
     {
         if (array_key_exists('infoWindowContentTemplatePath', $this->settings)) {
@@ -84,6 +96,7 @@ class AbstractController extends ActionController
         $this->settings['forceZoom'] = (bool)$this->settings['forceZoom'] ?? false;
 
         if (empty($this->settings['mapProvider'])) {
+            /** @var MapService $mapService */
             $mapService = GeneralUtility::makeInstance(MapService::class);
             $this->controllerContext
                 ->getFlashMessageQueue()

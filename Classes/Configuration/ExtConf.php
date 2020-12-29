@@ -21,37 +21,137 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class ExtConf implements SingletonInterface
 {
     // general
+    /**
+     * @var string
+     */
     protected $mapProvider = '';
+
+    /**
+     * @var string
+     */
     protected $defaultMapProvider = '';
+
+    /**
+     * @var string
+     */
     protected $defaultCountry = '';
+
+    /**
+     * @var
+     */
     protected $defaultLatitude;
+
+    /**
+     * @var
+     */
     protected $defaultLongitude;
+
+    /**
+     * @var int
+     */
     protected $defaultRadius = 0;
+
+    /**
+     * @var bool
+     */
     protected $explicitAllowMapProviderRequests = false;
+
+    /**
+     * @var bool
+     */
     protected $explicitAllowMapProviderRequestsBySessionOnly = false;
+
+    /**
+     * @var string
+     */
     protected $infoWindowContentTemplatePath = '';
+
+    /**
+     * @var string
+     */
     protected $allowMapTemplatePath = '';
 
     // Google Maps
+
+    /**
+     * @var string
+     */
     protected $googleMapsLibrary = '';
+
+    /**
+     * @var string
+     */
     protected $googleMapsGeocodeUri = '';
+
+    /**
+     * @var string
+     */
     protected $googleMapsJavaScriptApiKey = '';
+
+    /**
+     * @var string
+     */
     protected $googleMapsGeocodeApiKey = '';
 
     // Open Street Map
+
+    /**
+     * @var string
+     */
     protected $openStreetMapGeocodeUri = '';
 
     // Design/Color
+
+    /**
+     * @var string
+     */
     protected $strokeColor = '';
+
+    /**
+     * @var
+     */
     protected $strokeOpacity;
+
+    /**
+     * @var int
+     */
     protected $strokeWeight = 0;
+
+    /**
+     * @var string
+     */
     protected $fillColor = '';
+
+    /**
+     * @var
+     */
     protected $fillOpacity;
+
+    /**
+     * @var int
+     */
     protected $markerIconWidth = 0;
+
+    /**
+     * @var int
+     */
     protected $markerIconHeight = 0;
+
+    /**
+     * @var int
+     */
     protected $markerIconAnchorPosX = 0;
+
+    /**
+     * @var int
+     */
     protected $markerIconAnchorPosY = 0;
 
+    /**
+     * ExtConf constructor.
+     *
+     * @param array|null $extConf
+     */
     public function __construct(array $extConf = null)
     {
         if (!isset($extConf)) {
@@ -68,6 +168,9 @@ class ExtConf implements SingletonInterface
         }
     }
 
+    /**
+     * @return string
+     */
     public function getMapProvider(): string
     {
         if (empty($this->mapProvider)) {
@@ -77,11 +180,17 @@ class ExtConf implements SingletonInterface
         return $this->mapProvider;
     }
 
+    /**
+     * @param string $mapProvider
+     */
     public function setMapProvider(string $mapProvider)
     {
         $this->mapProvider = $mapProvider;
     }
 
+    /**
+     * @return string
+     */
     public function getDefaultMapProvider(): string
     {
         if (empty($this->defaultMapProvider)) {
@@ -91,21 +200,33 @@ class ExtConf implements SingletonInterface
         return $this->defaultMapProvider;
     }
 
+    /**
+     * @param string $defaultMapProvider
+     */
     public function setDefaultMapProvider(string $defaultMapProvider)
     {
         $this->defaultMapProvider = $defaultMapProvider;
     }
 
+    /**
+     * @return string
+     */
     public function getDefaultCountry(): string
     {
         return $this->defaultCountry;
     }
 
+    /**
+     * @param string $defaultCountry
+     */
     public function setDefaultCountry(string $defaultCountry)
     {
         $this->defaultCountry = trim($defaultCountry);
     }
 
+    /**
+     * @return float
+     */
     public function getDefaultLatitude(): float
     {
         if (empty($this->defaultLatitude)) {
@@ -114,11 +235,17 @@ class ExtConf implements SingletonInterface
         return $this->defaultLatitude;
     }
 
+    /**
+     * @param $defaultLatitude
+     */
     public function setDefaultLatitude($defaultLatitude)
     {
         $this->defaultLatitude = (float)$defaultLatitude;
     }
 
+    /**
+     * @return float
+     */
     public function getDefaultLongitude(): float
     {
         if (empty($this->defaultLongitude)) {
@@ -127,11 +254,17 @@ class ExtConf implements SingletonInterface
         return $this->defaultLongitude;
     }
 
+    /**
+     * @param $defaultLongitude
+     */
     public function setDefaultLongitude($defaultLongitude)
     {
         $this->defaultLongitude = (float)$defaultLongitude;
     }
 
+    /**
+     * @return int
+     */
     public function getDefaultRadius(): int
     {
         if (empty($this->defaultRadius)) {
@@ -140,31 +273,49 @@ class ExtConf implements SingletonInterface
         return $this->defaultRadius;
     }
 
+    /**
+     * @param $defaultRadius
+     */
     public function setDefaultRadius($defaultRadius)
     {
         $this->defaultRadius = (int)$defaultRadius;
     }
 
+    /**
+     * @return bool
+     */
     public function getExplicitAllowMapProviderRequests(): bool
     {
         return $this->explicitAllowMapProviderRequests;
     }
 
+    /**
+     * @param $explicitAllowMapProviderRequests
+     */
     public function setExplicitAllowMapProviderRequests($explicitAllowMapProviderRequests)
     {
         $this->explicitAllowMapProviderRequests = (bool)$explicitAllowMapProviderRequests;
     }
 
+    /**
+     * @return bool
+     */
     public function getExplicitAllowMapProviderRequestsBySessionOnly(): bool
     {
         return $this->explicitAllowMapProviderRequestsBySessionOnly;
     }
 
+    /**
+     * @param $explicitAllowMapProviderRequestsBySessionOnly
+     */
     public function setExplicitAllowMapProviderRequestsBySessionOnly($explicitAllowMapProviderRequestsBySessionOnly)
     {
         $this->explicitAllowMapProviderRequestsBySessionOnly = (bool)$explicitAllowMapProviderRequestsBySessionOnly;
     }
 
+    /**
+     * @return string
+     */
     public function getInfoWindowContentTemplatePath(): string
     {
         if (empty($this->infoWindowContentTemplatePath)) {
@@ -173,11 +324,17 @@ class ExtConf implements SingletonInterface
         return $this->infoWindowContentTemplatePath;
     }
 
+    /**
+     * @param string $infoWindowContentTemplatePath
+     */
     public function setInfoWindowContentTemplatePath(string $infoWindowContentTemplatePath)
     {
         $this->infoWindowContentTemplatePath = $infoWindowContentTemplatePath;
     }
 
+    /**
+     * @return string
+     */
     public function getAllowMapTemplatePath(): string
     {
         if (empty($this->allowMapTemplatePath)) {
@@ -186,11 +343,17 @@ class ExtConf implements SingletonInterface
         return $this->allowMapTemplatePath;
     }
 
+    /**
+     * @param string $allowMapTemplatePath
+     */
     public function setAllowMapTemplatePath(string $allowMapTemplatePath)
     {
         $this->allowMapTemplatePath = $allowMapTemplatePath;
     }
 
+    /**
+     * @return string
+     */
     public function getGoogleMapsLibrary(): string
     {
         if (
@@ -213,11 +376,17 @@ class ExtConf implements SingletonInterface
         return '';
     }
 
+    /**
+     * @param string $googleMapsLibrary
+     */
     public function setGoogleMapsLibrary(string $googleMapsLibrary)
     {
         $this->googleMapsLibrary = trim($googleMapsLibrary);
     }
 
+    /**
+     * @return string
+     */
     public function getGoogleMapsGeocodeUri(): string
     {
         if (empty($this->googleMapsGeocodeUri)) {
@@ -226,31 +395,49 @@ class ExtConf implements SingletonInterface
         return $this->googleMapsGeocodeUri;
     }
 
+    /**
+     * @param string $googleMapsGeocodeUri
+     */
     public function setGoogleMapsGeocodeUri(string $googleMapsGeocodeUri)
     {
         $this->googleMapsGeocodeUri = trim($googleMapsGeocodeUri);
     }
 
+    /**
+     * @return string
+     */
     public function getGoogleMapsJavaScriptApiKey(): string
     {
         return $this->googleMapsJavaScriptApiKey;
     }
 
+    /**
+     * @param string $googleMapsJavaScriptApiKey
+     */
     public function setGoogleMapsJavaScriptApiKey(string $googleMapsJavaScriptApiKey)
     {
         $this->googleMapsJavaScriptApiKey = trim($googleMapsJavaScriptApiKey);
     }
 
+    /**
+     * @return string
+     */
     public function getGoogleMapsGeocodeApiKey(): string
     {
         return $this->googleMapsGeocodeApiKey;
     }
 
+    /**
+     * @param string $googleMapsGeocodeApiKey
+     */
     public function setGoogleMapsGeocodeApiKey(string $googleMapsGeocodeApiKey)
     {
         $this->googleMapsGeocodeApiKey = trim($googleMapsGeocodeApiKey);
     }
 
+    /**
+     * @return string
+     */
     public function getOpenStreetMapGeocodeUri(): string
     {
         if (empty($this->openStreetMapGeocodeUri)) {
@@ -259,11 +446,17 @@ class ExtConf implements SingletonInterface
         return $this->openStreetMapGeocodeUri;
     }
 
+    /**
+     * @param string $openStreetMapGeocodeUri
+     */
     public function setOpenStreetMapGeocodeUri(string $openStreetMapGeocodeUri)
     {
         $this->openStreetMapGeocodeUri = trim($openStreetMapGeocodeUri);
     }
 
+    /**
+     * @return string
+     */
     public function getStrokeColor(): string
     {
         if (empty($this->strokeColor)) {
@@ -272,11 +465,17 @@ class ExtConf implements SingletonInterface
         return $this->strokeColor;
     }
 
+    /**
+     * @param string $strokeColor
+     */
     public function setStrokeColor(string $strokeColor)
     {
         $this->strokeColor = $strokeColor;
     }
 
+    /**
+     * @return float
+     */
     public function getStrokeOpacity(): float
     {
         if (empty($this->strokeOpacity)) {
@@ -285,11 +484,17 @@ class ExtConf implements SingletonInterface
         return $this->strokeOpacity;
     }
 
+    /**
+     * @param $strokeOpacity
+     */
     public function setStrokeOpacity($strokeOpacity)
     {
         $this->strokeOpacity = (float)$strokeOpacity;
     }
 
+    /**
+     * @return int
+     */
     public function getStrokeWeight(): int
     {
         if (empty($this->strokeWeight)) {
@@ -298,11 +503,17 @@ class ExtConf implements SingletonInterface
         return $this->strokeWeight;
     }
 
+    /**
+     * @param $strokeWeight
+     */
     public function setStrokeWeight($strokeWeight)
     {
         $this->strokeWeight = (int)$strokeWeight;
     }
 
+    /**
+     * @return string
+     */
     public function getFillColor(): string
     {
         if (empty($this->fillColor)) {
@@ -311,11 +522,17 @@ class ExtConf implements SingletonInterface
         return $this->fillColor;
     }
 
+    /**
+     * @param string $fillColor
+     */
     public function setFillColor(string $fillColor)
     {
         $this->fillColor = $fillColor;
     }
 
+    /**
+     * @return float
+     */
     public function getFillOpacity(): float
     {
         if (empty($this->fillOpacity)) {
@@ -324,46 +541,73 @@ class ExtConf implements SingletonInterface
         return $this->fillOpacity;
     }
 
+    /**
+     * @param $fillOpacity
+     */
     public function setFillOpacity($fillOpacity)
     {
         $this->fillOpacity = (float)$fillOpacity;
     }
 
+    /**
+     * @return int
+     */
     public function getMarkerIconWidth(): int
     {
         return $this->markerIconWidth;
     }
 
+    /**
+     * @param $markerIconWidth
+     */
     public function setMarkerIconWidth($markerIconWidth)
     {
         $this->markerIconWidth = (int)$markerIconWidth;
     }
 
+    /**
+     * @return int
+     */
     public function getMarkerIconHeight(): int
     {
         return $this->markerIconHeight;
     }
 
+    /**
+     * @param $markerIconHeight
+     */
     public function setMarkerIconHeight($markerIconHeight)
     {
         $this->markerIconHeight = (int)$markerIconHeight;
     }
 
+    /**
+     * @return int
+     */
     public function getMarkerIconAnchorPosX(): int
     {
         return $this->markerIconAnchorPosX;
     }
 
+    /**
+     * @param $markerIconAnchorPosX
+     */
     public function setMarkerIconAnchorPosX($markerIconAnchorPosX)
     {
         $this->markerIconAnchorPosX = (int)$markerIconAnchorPosX;
     }
 
+    /**
+     * @return int
+     */
     public function getMarkerIconAnchorPosY(): int
     {
         return $this->markerIconAnchorPosY;
     }
 
+    /**
+     * @param $markerIconAnchorPosY
+     */
     public function setMarkerIconAnchorPosY($markerIconAnchorPosY)
     {
         $this->markerIconAnchorPosY = (int)$markerIconAnchorPosY;

@@ -24,6 +24,10 @@ class OpenStreetMapClient extends AbstractClient
      */
     protected $title = 'Open Street Map';
 
+    /**
+     * @param array|null $response
+     * @throws \TYPO3\CMS\Core\Exception
+     */
     protected function checkResponseForErrors(?array $response)
     {
         if ($response === null) {

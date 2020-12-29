@@ -61,11 +61,17 @@ class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category
         $this->maps2MarkerIcons = new ObjectStorage();
     }
 
+    /**
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
     public function getMaps2MarkerIcons(): ObjectStorage
     {
         return $this->maps2MarkerIcons;
     }
 
+    /**
+     * @return string
+     */
     public function getMaps2MarkerIcon(): string
     {
         $this->maps2MarkerIcons->rewind();
@@ -84,11 +90,17 @@ class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category
         return $siteUrl . $falIconReference->getPublicUrl(false);
     }
 
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $maps2MarkerIcons
+     */
     public function setMaps2MarkerIcons(ObjectStorage $maps2MarkerIcons)
     {
         $this->maps2MarkerIcons = $maps2MarkerIcons;
     }
 
+    /**
+     * @return int
+     */
     public function getMaps2MarkerIconWidth(): int
     {
         // prevent using local maps2MarkerIconWidth, if no markerIcon is set.
@@ -96,17 +108,24 @@ class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category
             empty($this->maps2MarkerIconWidth)
             || (!empty($this->maps2MarkerIconWidth) && $this->getMaps2MarkerIcons()->count() === 0)
         ) {
+            /** @var ExtConf $extConf */
             $extConf = GeneralUtility::makeInstance(ExtConf::class);
             return $extConf->getMarkerIconWidth();
         }
         return $this->maps2MarkerIconWidth;
     }
 
+    /**
+     * @param int $maps2MarkerIconWidth
+     */
     public function setMaps2MarkerIconWidth(int $maps2MarkerIconWidth)
     {
         $this->maps2MarkerIconWidth = $maps2MarkerIconWidth;
     }
 
+    /**
+     * @return int
+     */
     public function getMaps2MarkerIconHeight(): int
     {
         // prevent using local maps2MarkerIconHeight, if no markerIcon is set.
@@ -114,17 +133,24 @@ class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category
             empty($this->maps2MarkerIconHeight)
             || (!empty($this->maps2MarkerIconHeight) && $this->getMaps2MarkerIcons()->count() === 0)
         ) {
+            /** @var ExtConf $extConf */
             $extConf = GeneralUtility::makeInstance(ExtConf::class);
             return $extConf->getMarkerIconHeight();
         }
         return $this->maps2MarkerIconHeight;
     }
 
+    /**
+     * @param int $maps2MarkerIconHeight
+     */
     public function setMaps2MarkerIconHeight(int $maps2MarkerIconHeight)
     {
         $this->maps2MarkerIconHeight = $maps2MarkerIconHeight;
     }
 
+    /**
+     * @return int
+     */
     public function getMaps2MarkerIconAnchorPosX(): int
     {
         // prevent using local maps2MarkerIconAnchorPosX, if no markerIcon is set.
@@ -132,17 +158,24 @@ class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category
             empty($this->maps2MarkerIconAnchorPosX)
             || (!empty($this->maps2MarkerIconAnchorPosX) && $this->getMaps2MarkerIcons()->count() === 0)
         ) {
+            /** @var ExtConf $extConf */
             $extConf = GeneralUtility::makeInstance(ExtConf::class);
             return $extConf->getMarkerIconAnchorPosX();
         }
         return $this->maps2MarkerIconAnchorPosX;
     }
 
+    /**
+     * @param int $maps2MarkerIconAnchorPosX
+     */
     public function setMaps2MarkerIconAnchorPosX(int $maps2MarkerIconAnchorPosX)
     {
         $this->maps2MarkerIconAnchorPosX = $maps2MarkerIconAnchorPosX;
     }
 
+    /**
+     * @return int
+     */
     public function getMaps2MarkerIconAnchorPosY(): int
     {
         // prevent using local maps2MarkerIconAnchorPosY, if no markerIcon is set.
@@ -150,22 +183,32 @@ class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category
             empty($this->maps2MarkerIconAnchorPosY)
             || (!empty($this->maps2MarkerIconAnchorPosY) && $this->getMaps2MarkerIcons()->count() === 0)
         ) {
+            /** @var ExtConf $extConf */
             $extConf = GeneralUtility::makeInstance(ExtConf::class);
             return $extConf->getMarkerIconAnchorPosY();
         }
         return $this->maps2MarkerIconAnchorPosY;
     }
 
+    /**
+     * @param int $maps2MarkerIconAnchorPosY
+     */
     public function setMaps2MarkerIconAnchorPosY(int $maps2MarkerIconAnchorPosY)
     {
         $this->maps2MarkerIconAnchorPosY = $maps2MarkerIconAnchorPosY;
     }
 
+    /**
+     * @return int
+     */
     public function getSorting(): int
     {
         return $this->sorting;
     }
 
+    /**
+     * @param int $sorting
+     */
     public function setSorting(int $sorting)
     {
         $this->sorting = $sorting;

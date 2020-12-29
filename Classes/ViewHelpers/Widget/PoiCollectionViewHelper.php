@@ -28,6 +28,9 @@ class PoiCollectionViewHelper extends AbstractWidgetViewHelper
      */
     protected $controller;
 
+    /**
+     * @param \JWeiland\Maps2\ViewHelpers\Widget\Controller\PoiCollectionController $controller
+     */
     public function injectController(Controller\PoiCollectionController $controller)
     {
         $this->controller = $controller;
@@ -62,8 +65,10 @@ class PoiCollectionViewHelper extends AbstractWidgetViewHelper
      */
     public function render()
     {
+        /** @var MapProviderRequestService $mapProviderRequestService */
         $mapProviderRequestService = GeneralUtility::makeInstance(MapProviderRequestService::class);
         if (!$mapProviderRequestService->isRequestToMapProviderAllowed()) {
+            /** @var MapService $mapService */
             $mapService = GeneralUtility::makeInstance(MapService::class);
             return $mapService->showAllowMapForm();
         }

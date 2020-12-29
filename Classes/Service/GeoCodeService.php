@@ -34,6 +34,11 @@ class GeoCodeService implements SingletonInterface
      */
     protected $client;
 
+    /**
+     * GeoCodeService constructor.
+     *
+     * @param \JWeiland\Maps2\Client\ClientInterface|null $client
+     */
     public function __construct(ClientInterface $client = null)
     {
         $this->client = $client ?? GeneralUtility::makeInstance(ClientFactory::class)->create();
@@ -45,6 +50,7 @@ class GeoCodeService implements SingletonInterface
      */
     public function getPositionsByAddress(string $address): ObjectStorage
     {
+        /** @var ObjectStorage $positions */
         $positions = GeneralUtility::makeInstance(ObjectStorage::class);
 
         // Prevent calls to Map Providers GeoCode API, if address is empty
@@ -52,12 +58,14 @@ class GeoCodeService implements SingletonInterface
             return $positions;
         }
 
+        /** @var RequestFactory $requestFactory */
         $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
         $geocodeRequest = $requestFactory->create('GeocodeRequest');
         $geocodeRequest->addParameter('address', (string)$address);
 
         $response = $this->client->processRequest($geocodeRequest);
         if (!empty($response)) {
+            /** @var MapperFactory $mapperFactory */
             $mapperFactory = GeneralUtility::makeInstance(MapperFactory::class);
             $positions = $mapperFactory->create()->map($response);
         }
@@ -65,6 +73,10 @@ class GeoCodeService implements SingletonInterface
         return $positions;
     }
 
+    /**
+     * @param string $address
+     * @return \JWeiland\Maps2\Domain\Model\Position|null
+     */
     public function getFirstFoundPositionByAddress(string $address): ?Position
     {
         $position = null;
@@ -78,6 +90,9 @@ class GeoCodeService implements SingletonInterface
         return $position;
     }
 
+    /**
+     * @return bool
+     */
     public function hasErrors(): bool
     {
         return $this->client->hasErrors();

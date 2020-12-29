@@ -104,12 +104,16 @@ class CacheService
         if (version_compare(TYPO3_branch, '9.4', '<')) {
             $languageId = (int)$GLOBALS['TSFE']->sys_language_uid;
         } else {
+            /** @var Context $context */
             $context = GeneralUtility::makeInstance(Context::class);
             $languageId = (int)$context->getPropertyFromAspect('language', 'id');
         }
         return $languageId;
     }
 
+    /**
+     * @return bool
+     */
     protected function isFrontendEnvironment(): bool
     {
         return (defined('TYPO3_MODE') && TYPO3_MODE === 'FE') ?: false;

@@ -21,8 +21,13 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  */
 class GoogleMapsMapper implements MapperInterface
 {
+    /**
+     * @param array $response
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
     public function map(array $response): ObjectStorage
     {
+        /** @var ObjectStorage $objectStorage */
         $objectStorage = GeneralUtility::makeInstance(ObjectStorage::class);
         foreach ($response['results'] as $data) {
             $objectStorage->attach($this->getPosition($data));
@@ -30,8 +35,13 @@ class GoogleMapsMapper implements MapperInterface
         return $objectStorage;
     }
 
+    /**
+     * @param array $data
+     * @return \JWeiland\Maps2\Domain\Model\Position
+     */
     protected function getPosition(array $data): Position
     {
+        /** @var Position $position */
         $position = GeneralUtility::makeInstance(Position::class);
         $position->setFormattedAddress($data['formatted_address']);
 

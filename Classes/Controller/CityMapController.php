@@ -24,8 +24,12 @@ class CityMapController extends AbstractController
     {
     }
 
+    /**
+     * @param string $street
+     */
     public function searchAction(string $street)
     {
+        /** @var GeoCodeService $geoCodeService */
         $geoCodeService = GeneralUtility::makeInstance(GeoCodeService::class);
         $position = $geoCodeService->getFirstFoundPositionByAddress(
             strip_tags($street) . ' ' . $this->settings['autoAppend']

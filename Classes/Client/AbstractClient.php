@@ -26,11 +26,21 @@ abstract class AbstractClient implements ClientInterface
      */
     protected $messageHelper;
 
+    /**
+     * AbstractClient constructor.
+     *
+     * @param \JWeiland\Maps2\Helper\MessageHelper|null $messageHelper
+     */
     public function __construct(MessageHelper $messageHelper = null)
     {
         $this->messageHelper = $messageHelper ?? GeneralUtility::makeInstance(MessageHelper::class);
     }
 
+    /**
+     * @param \JWeiland\Maps2\Client\Request\RequestInterface $request
+     * @return array
+     * @throws \TYPO3\CMS\Core\Exception
+     */
     public function processRequest(RequestInterface $request): array
     {
         if (!$request->isValidRequest()) {
@@ -58,6 +68,9 @@ abstract class AbstractClient implements ClientInterface
         return $processedResponse;
     }
 
+    /**
+     * @return bool
+     */
     public function hasErrors(): bool
     {
         return $this->messageHelper->hasErrorMessages();
@@ -87,5 +100,9 @@ abstract class AbstractClient implements ClientInterface
         }
     }
 
+    /**
+     * @param array|null $processedResponse
+     * @return mixed
+     */
     abstract protected function checkResponseForErrors(?array $processedResponse);
 }

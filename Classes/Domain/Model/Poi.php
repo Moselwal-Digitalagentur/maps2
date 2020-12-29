@@ -39,41 +39,65 @@ class Poi extends AbstractEntity
      */
     protected $longitude = 0.0;
 
+    /**
+     * @return int
+     */
     public function getCruserId(): int
     {
         return $this->cruserId;
     }
 
+    /**
+     * @param int $cruserId
+     */
     public function setCruserId(int $cruserId)
     {
         $this->cruserId = $cruserId;
     }
 
+    /**
+     * @return int
+     */
     public function getPosIndex(): int
     {
         return $this->posIndex;
     }
 
+    /**
+     * @param int $posIndex
+     */
     public function setPosIndex(int $posIndex)
     {
         $this->posIndex = $posIndex;
     }
 
+    /**
+     * @return float
+     */
     public function getLatitude(): float
     {
         return $this->latitude;
     }
 
+    /**
+     * @param float $latitude
+     */
     public function setLatitude(float $latitude)
     {
         $this->latitude = $latitude;
     }
 
+    /**
+     * @return float
+     */
     public function getLongitude(): float
     {
         return $this->longitude;
     }
 
+    /**
+     * @param float $longitude
+     */
     public function setLongitude(float $longitude)
     {
         $this->longitude = $longitude;

@@ -20,8 +20,13 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  */
 class OpenStreetMapMapper implements MapperInterface
 {
+    /**
+     * @param array $response
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
     public function map(array $response): ObjectStorage
     {
+        /** @var ObjectStorage $objectStorage */
         $objectStorage = GeneralUtility::makeInstance(ObjectStorage::class);
         foreach ($response as $data) {
             $objectStorage->attach($this->getPosition($data));
@@ -29,8 +34,13 @@ class OpenStreetMapMapper implements MapperInterface
         return $objectStorage;
     }
 
+    /**
+     * @param array $data
+     * @return \JWeiland\Maps2\Domain\Model\Position
+     */
     protected function getPosition(array $data): Position
     {
+        /** @var Position $position */
         $position = GeneralUtility::makeInstance(Position::class);
         $position->setFormattedAddress($this->getFormattedAddress($data));
         $position->setLatitude((float)$data['lat'] ?? 0.0);

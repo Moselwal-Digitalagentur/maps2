@@ -30,6 +30,12 @@ class MapProviderResolver implements NodeResolverInterface
      */
     protected $data = [];
 
+    /**
+     * MapProviderResolver constructor.
+     *
+     * @param \TYPO3\CMS\Backend\Form\NodeFactory $nodeFactory
+     * @param array $data
+     */
     public function __construct(NodeFactory $nodeFactory, array $data)
     {
         $this->data = $data;
@@ -42,6 +48,7 @@ class MapProviderResolver implements NodeResolverInterface
      */
     public function resolve()
     {
+        /** @var MapService $mapService */
         $mapService = GeneralUtility::makeInstance(MapService::class);
         if ($mapService->getMapProvider($this->data['databaseRow']) === 'osm') {
             return OpenStreetMapElement::class;

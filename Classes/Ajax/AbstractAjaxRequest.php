@@ -25,6 +25,9 @@ abstract class AbstractAjaxRequest implements AjaxInterface
      */
     protected $hashService;
 
+    /**
+     * @param \TYPO3\CMS\Extbase\Security\Cryptography\HashService $hashService
+     */
     public function injectHashService(HashService $hashService)
     {
         $this->hashService = $hashService;
@@ -80,6 +83,9 @@ abstract class AbstractAjaxRequest implements AjaxInterface
         return $isValidPoiCollection;
     }
 
+    /**
+     * @return \TYPO3\CMS\Core\Database\ConnectionPool
+     */
     protected function getConnectionPool(): ConnectionPool
     {
         return GeneralUtility::makeInstance(ConnectionPool::class);

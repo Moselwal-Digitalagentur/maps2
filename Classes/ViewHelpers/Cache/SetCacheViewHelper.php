@@ -78,8 +78,10 @@ class SetCacheViewHelper extends AbstractViewHelper
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
+        /** @var CacheService $cacheService */
         $cacheService = GeneralUtility::makeInstance(CacheService::class);
         $poiCollection = $cacheService->preparePoiCollectionForCacheMethods($arguments['poiCollection']);
+        /** @var \TYPO3\CMS\Core\Cache\Frontend\FrontendInterface $cache */
         $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('maps2_cachedhtml');
 
         $cache->set(

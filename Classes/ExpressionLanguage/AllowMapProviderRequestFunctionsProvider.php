@@ -22,6 +22,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class AllowMapProviderRequestFunctionsProvider implements ExpressionFunctionProviderInterface
 {
+    /**
+     * @return \Symfony\Component\ExpressionLanguage\ExpressionFunction[]
+     */
     public function getFunctions()
     {
         return [
@@ -29,11 +32,15 @@ class AllowMapProviderRequestFunctionsProvider implements ExpressionFunctionProv
         ];
     }
 
+    /**
+     * @return \Symfony\Component\ExpressionLanguage\ExpressionFunction
+     */
     protected function getIsRequestToMapProviderAllowed(): ExpressionFunction
     {
         $compiler = function () {
         };
         $evaluator = function ($existingVariables) {
+            /** @var MapProviderRequestService $mapProviderRequestService */
             $mapProviderRequestService = GeneralUtility::makeInstance(MapProviderRequestService::class);
             return $mapProviderRequestService->isRequestToMapProviderAllowed();
         };

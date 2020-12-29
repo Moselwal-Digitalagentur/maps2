@@ -48,11 +48,17 @@ class Maps2Registry implements SingletonInterface
      */
     protected $template = '';
 
+    /**
+     * @return static
+     */
     public static function getInstance(): self
     {
         return GeneralUtility::makeInstance(__CLASS__);
     }
 
+    /**
+     * Maps2Registry constructor.
+     */
     public function __construct()
     {
         $this->configurationFile = Environment::getConfigPath() . '/Maps2/Registry.json';
@@ -160,21 +166,35 @@ class Maps2Registry implements SingletonInterface
         return $columnRegistry;
     }
 
+    /**
+     * @return array
+     */
     public function getExtensionKeys(): array
     {
         return array_keys($this->extensions);
     }
 
+    /**
+     * @return array
+     */
     public function getCategorizedTables(): array
     {
         return array_keys($this->registry);
     }
 
+    /**
+     * @param string $tableName
+     * @param string $fieldName
+     * @return bool
+     */
     public function isRegistered(string $tableName, string $fieldName = 'tx_maps2_uid'): bool
     {
         return isset($this->registry[$tableName][$fieldName]);
     }
 
+    /**
+     * @return string
+     */
     public function getDatabaseTableDefinitions(): string
     {
         $sql = '';
@@ -184,6 +204,10 @@ class Maps2Registry implements SingletonInterface
         return $sql;
     }
 
+    /**
+     * @param string $extensionKey
+     * @return string
+     */
     public function getDatabaseTableDefinition(string $extensionKey): string
     {
         if (!isset($this->extensions[$extensionKey]) || !is_array($this->extensions[$extensionKey])) {
@@ -199,6 +223,10 @@ class Maps2Registry implements SingletonInterface
         return $sql;
     }
 
+    /**
+     * @param string $tableName
+     * @param string $fieldName
+     */
     protected function applyTcaForTableAndField(string $tableName, string $fieldName)
     {
         $this->addTcaColumn($tableName, $fieldName, $this->registry[$tableName][$fieldName]);
@@ -241,6 +269,11 @@ class Maps2Registry implements SingletonInterface
         }
     }
 
+    /**
+     * @param string $tableName
+     * @param string $fieldName
+     * @return string
+     */
     protected function addMaps2Tab(string $tableName, string $fieldName): string
     {
         $fieldList = '';
@@ -385,6 +418,9 @@ class Maps2Registry implements SingletonInterface
         return ['sqlString' => $sqlString];
     }
 
+    /**
+     * @return \TYPO3\CMS\Core\Localization\LanguageService
+     */
     protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];

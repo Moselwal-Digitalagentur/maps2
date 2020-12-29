@@ -33,15 +33,26 @@ class MapProviderOverlayRequestHandler implements RequestHandlerInterface
      */
     protected $objectManager;
 
+    /**
+     * MapProviderOverlayRequestHandler constructor.
+     *
+     * @param \TYPO3\CMS\Extbase\Object\ObjectManager|null $objectManager
+     */
     public function __construct(ObjectManager $objectManager = null)
     {
         $this->objectManager = $objectManager ?? GeneralUtility::makeInstance(ObjectManager::class);
     }
 
+    /**
+     * @return bool
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
+     */
     public function canHandleRequest(): bool
     {
         if (!Environment::isCli()) {
+            /** @var MapProviderRequestService $mapProviderRequestService */
             $mapProviderRequestService = GeneralUtility::makeInstance(MapProviderRequestService::class);
+            /** @var ConfigurationManagerInterface $configurationManager */
             $configurationManager = $this->objectManager->get(ConfigurationManagerInterface::class);
             $configuration = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
@@ -64,9 +75,15 @@ class MapProviderOverlayRequestHandler implements RequestHandlerInterface
         return 120;
     }
 
+    /**
+     * @return \TYPO3\CMS\Extbase\Mvc\ResponseInterface
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
+     */
     public function handleRequest(): ResponseInterface
     {
+        /** @var Response $response */
         $response = $this->objectManager->get(Response::class);
+        /** @var MapService $mapService */
         $mapService = GeneralUtility::makeInstance(MapService::class);
 
         $response->appendContent($mapService->showAllowMapForm());

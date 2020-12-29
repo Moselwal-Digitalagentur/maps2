@@ -67,6 +67,9 @@ class GoogleMapsElement extends AbstractFormElement
      */
     protected $messageHelper;
 
+    /**
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
+     */
     public function init()
     {
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);

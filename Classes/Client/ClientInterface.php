@@ -26,6 +26,9 @@ interface ClientInterface
      */
     public function processRequest(RequestInterface $request);
 
+    /**
+     * @return bool
+     */
     public function hasErrors(): bool;
 
     /**

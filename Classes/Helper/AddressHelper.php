@@ -28,6 +28,11 @@ class AddressHelper
      */
     protected $messageHelper;
 
+    /**
+     * AddressHelper constructor.
+     *
+     * @param \JWeiland\Maps2\Helper\MessageHelper|null $messageHelper
+     */
     public function __construct(MessageHelper $messageHelper = null)
     {
         $this->messageHelper = $messageHelper ?? GeneralUtility::makeInstance(MessageHelper::class);
@@ -132,6 +137,7 @@ class AddressHelper
         );
 
         // try to get default country of maps2 extConf
+        /** @var ExtConf $extConf */
         $extConf = GeneralUtility::makeInstance(ExtConf::class);
         $defaultCountry = $extConf->getDefaultCountry();
         if ($defaultCountry) {

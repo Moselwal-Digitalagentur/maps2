@@ -26,8 +26,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class PoiCollectionController extends AbstractController
 {
+
+    /**
+     * @param \JWeiland\Maps2\Domain\Model\PoiCollection|null $poiCollection
+     */
     public function showAction(PoiCollection $poiCollection = null): void
     {
+        /** @var PoiCollectionRepository $poiCollectionRepository */
         $poiCollectionRepository = $this->objectManager->get(PoiCollectionRepository::class);
 
         // if uri is empty and a poiCollection is set in FlexForm
@@ -58,6 +63,7 @@ class PoiCollectionController extends AbstractController
             }
         }
 
+        /** @var MapService $mapService */
         $mapService = GeneralUtility::makeInstance(MapService::class);
         foreach ($poiCollections as $poiCollection) {
             $mapService->setInfoWindow($poiCollection);
@@ -65,22 +71,32 @@ class PoiCollectionController extends AbstractController
         $this->view->assign('poiCollections', $poiCollections);
     }
 
+    /**
+     * @param \JWeiland\Maps2\Domain\Model\Search|null $search
+     */
     public function searchAction(Search $search = null): void
     {
         if ($search === null) {
+            /** @var Search $search */
             $search = $this->objectManager->get(Search::class);
         }
         $this->view->assign('search', $search);
     }
 
+    /**
+     * @param \JWeiland\Maps2\Domain\Model\Search $search
+     */
     public function listRadiusAction(Search $search): void
     {
+        /** @var MapService $mapService */
         $mapService = GeneralUtility::makeInstance(MapService::class);
+        /** @var GeoCodeService $geoCodeService */
         $geoCodeService = GeneralUtility::makeInstance(GeoCodeService::class);
 
         $this->view->assign('search', $search);
         $position = $geoCodeService->getFirstFoundPositionByAddress($search->getAddress());
         if ($position instanceof Position) {
+            /** @var PoiCollectionRepository $poiCollectionRepository */
             $poiCollectionRepository = $this->objectManager->get(PoiCollectionRepository::class);
             $poiCollections = $poiCollectionRepository->searchWithinRadius(
                 $position->getLatitude(),

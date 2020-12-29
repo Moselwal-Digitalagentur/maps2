@@ -19,6 +19,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class DatabaseUtility
 {
+    /**
+     * @param string $tableName
+     * @return array
+     */
     public static function getColumnsFromTable(string $tableName): array
     {
         $output = [];

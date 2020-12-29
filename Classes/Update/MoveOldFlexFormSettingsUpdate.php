@@ -266,10 +266,14 @@ class MoveOldFlexFormSettingsUpdate implements UpgradeWizardInterface
      */
     public function checkValue_flexArray2Xml($array): string
     {
+        /** @var FlexFormTools $flexObj */
         $flexObj = GeneralUtility::makeInstance(FlexFormTools::class);
         return $flexObj->flexArray2Xml($array, true);
     }
 
+    /**
+     * @return \TYPO3\CMS\Core\Database\ConnectionPool
+     */
     protected function getConnectionPool(): ConnectionPool
     {
         return GeneralUtility::makeInstance(ConnectionPool::class);

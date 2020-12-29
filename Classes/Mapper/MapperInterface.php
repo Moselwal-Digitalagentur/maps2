@@ -18,5 +18,9 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  */
 interface MapperInterface
 {
+    /**
+     * @param array $response
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
     public function map(array $response): ObjectStorage;
 }

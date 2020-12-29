@@ -28,11 +28,22 @@ class StoragePidHelper
      */
     protected $messageHelper;
 
+    /**
+     * StoragePidHelper constructor.
+     *
+     * @param \JWeiland\Maps2\Helper\MessageHelper|null $messageHelper
+     */
     public function __construct(MessageHelper $messageHelper = null)
     {
         $this->messageHelper = $messageHelper ?? GeneralUtility::makeInstance(MessageHelper::class);
     }
 
+    /**
+     * @param array $foreignLocationRecord
+     * @param array $options
+     * @return int
+     * @throws \TYPO3\CMS\Core\Exception
+     */
     public function getDefaultStoragePidForNewPoiCollection(array $foreignLocationRecord, array $options): int
     {
         $defaultStoragePid = 0;
@@ -188,6 +199,7 @@ class StoragePidHelper
                     }
 
                     try {
+                        /** @var ExtensionConfiguration $extensionConfiguration */
                         $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
                         $extConf = (array)$extensionConfiguration->get($extKey);
                     } catch (\Exception $e) {

@@ -54,8 +54,11 @@ class RenderHiddenFieldsForGetViewHelper extends AbstractViewHelper
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
+        /** @var ObjectManager $objectManager */
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        /** @var ExtensionService $extensionService */
         $extensionService = $objectManager->get(ExtensionService::class);
+        /** @var CacheHashCalculator $cacheHashCalculator */
         $cacheHashCalculator = $objectManager->get(CacheHashCalculator::class);
 
         $pluginNamespace = $extensionService->getPluginNamespace(

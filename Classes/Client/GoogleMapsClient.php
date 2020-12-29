@@ -24,6 +24,10 @@ class GoogleMapsClient extends AbstractClient
      */
     protected $title = 'Google Maps';
 
+    /**
+     * @param array|null $response
+     * @throws \TYPO3\CMS\Core\Exception
+     */
     protected function checkResponseForErrors(?array $response)
     {
         if ($response === null) {

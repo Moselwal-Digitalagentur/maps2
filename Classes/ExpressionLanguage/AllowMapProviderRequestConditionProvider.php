@@ -18,6 +18,9 @@ use TYPO3\CMS\Core\ExpressionLanguage\AbstractProvider;
  */
 class AllowMapProviderRequestConditionProvider extends AbstractProvider
 {
+    /**
+     * AllowMapProviderRequestConditionProvider constructor.
+     */
     public function __construct()
     {
         $this->expressionLanguageProviders = [

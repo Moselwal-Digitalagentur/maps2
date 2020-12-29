@@ -28,13 +28,22 @@ class AjaxRequest
      */
     protected $objectManager;
 
+    /**
+     * AjaxRequest constructor.
+     */
     public function __construct()
     {
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
     }
 
+    /**
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
+     */
     public function dispatch(ServerRequestInterface $request): ResponseInterface
     {
+        /** @var Response $response */
         $response = GeneralUtility::makeInstance(Response::class);
 
         $postParams = $request->getParsedBody();

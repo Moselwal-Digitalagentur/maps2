@@ -21,8 +21,12 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  */
 class MapProviderRequestService
 {
+    /**
+     * @return bool
+     */
     public function isRequestToMapProviderAllowed(): bool
     {
+        /** @var ExtConf $extConf */
         $extConf = GeneralUtility::makeInstance(ExtConf::class);
 
         if ($extConf->getExplicitAllowMapProviderRequests()) {

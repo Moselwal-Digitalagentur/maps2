@@ -24,6 +24,11 @@ class GeocodeRequest extends AbstractRequest
      */
     protected $uri = '';
 
+    /**
+     * GeocodeRequest constructor.
+     *
+     * @param \JWeiland\Maps2\Configuration\ExtConf|null $extConf
+     */
     public function __construct(ExtConf $extConf = null)
     {
         parent::__construct($extConf);
